@@ -1,0 +1,4 @@
+ch.ivyteam.ivy.designer.preferences.DataClassPreferencePage\:DEFAULT_DATA_CLASS=dynamic.process.Data
+ch.ivyteam.ivy.designer.preferences.DataClassPreferencePage\:DEFAULT_NAMESPACE=dynamic.process
+ch.ivyteam.ivy.project.preferences\:PROJECT_VERSION=92000
+eclipse.preferences.version=1
