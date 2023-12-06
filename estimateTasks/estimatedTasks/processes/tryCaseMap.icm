@@ -1,0 +1,14 @@
+{
+  "uuid" : "ebbccaa0-75a1-482b-95d8-d00af28fd108",
+  "id" : "try_case_map",
+  "name" : "try Case Map",
+  "stages" : [ {
+    "id" : "new_stage",
+    "name" : "New Stage",
+    "icon" : "css:fa fa-address-book-o",
+    "processes" : [ {
+      "id" : "new_process",
+      "name" : "New Process"
+    } ]
+  } ]
+}
