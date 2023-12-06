@@ -2,31 +2,32 @@ package com.axonivy.demo.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.ArrayList;
-
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import ch.ivyteam.ivy.environment.Ivy;
 import ch.ivyteam.ivy.environment.IvyTest;
 import ch.ivyteam.ivy.process.IProcessManager;
 import ch.ivyteam.ivy.process.model.NodeElement;
-import ch.ivyteam.ivy.process.model.Process;
-import ch.ivyteam.ivy.process.model.element.SingleTaskCreator;
-import ch.ivyteam.ivy.process.model.element.event.start.RequestStart;
+import ch.ivyteam.ivy.process.model.element.gateway.Alternative;
 import ch.ivyteam.ivy.workflow.businesscase.IBusinessCase;
 
 @SuppressWarnings("restriction")
 @IvyTest
 public class ProcessNavigationTest {
 
-  @Test
-  public void processNavigation() {
+  private ProcessGraph graph;
+
+  @BeforeEach
+  void setup() {
     var pmv = Ivy.request().getProcessModelVersion();
     var manager = IProcessManager.instance().getProjectDataModelFor(pmv);
     var process = manager.findProcessByPath("main").getModel();
+    this.graph = new ProcessGraph(process);
+  }
 
-    var graph = new ProcessGraph(process);
-
+  @Test
+  void processNavigation() {
     var start = graph.findStart();
     var first = graph.nextTask(start);
     assertThat(first.getName()).isEqualTo("first");
@@ -56,39 +57,14 @@ public class ProcessNavigationTest {
     rootCase.customFields().stringField("estimate");
   }
 
-  private static class ProcessGraph {
-
-    private Process process;
-
-    public ProcessGraph(Process process) {
-      this.process = process;
-    }
-
-    public RequestStart findStart() {
-      return process.search().type(RequestStart.class).findOne();
-    }
-
-    public SingleTaskCreator nextTask(NodeElement from) {
-      if (from == null) {
-        return null;
-      }
-      var nexts = new ArrayList<NodeElement>();
-      for(var flow : from.getOutgoing()) {
-        var next = flow.getTarget();
-        nexts.add(next);
-        if (next instanceof SingleTaskCreator task) {
-          return task;
-        }
-      }
-      for(var next : nexts) {
-        var found = nextTask(next);
-        if (found != null) {
-          return found;
-        }
-      }
-      // embedded sub? div deep?
-      // call-sub -> inspect callee?
-      return null;
-    }
+  @Test
+  void happyPath_byColor() {
+    var gateway = graph.process.search().type(Alternative.class).findOne();
+    assertThat(gateway.getOutgoing()).hasSize(3);
+    var happyFlow = HappyPathFinder.happyOutOf(gateway);
+    assertThat(happyFlow.get().getPid().getFieldIds()).endsWith("f14");
+    NodeElement happyTarget = happyFlow.get().getTarget();
+    assertThat(happyTarget.getName()).isEqualTo("happy end");
   }
+
 }
