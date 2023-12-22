@@ -89,6 +89,8 @@ public class ProcessNavigationTest {
     assertThat(TaskEstimate.of(first))
       .as("simple strategy with fallbacks: e.g. tags first, description later")
       .isEqualTo("5h");
+
+    // third any maybe preferred option: refer by PID and keep data in separate store
   }
 
 }

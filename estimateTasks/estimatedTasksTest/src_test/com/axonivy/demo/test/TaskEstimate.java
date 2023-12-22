@@ -17,6 +17,8 @@ public class TaskEstimate {
 
     return desc(task)
       .or(()->tag(element))
+      .or(()->customFields(task))
+      .or(()->code(task))
       .orElse(null);
   }
 
@@ -37,6 +39,20 @@ public class TaskEstimate {
         .findAny();
     }
     return Optional.empty();
+  }
+
+  public static Optional<String> customFields(TaskConfig task) {
+    return task.getCustomFields().stream()
+      .filter(custom -> custom.getName().equals("estimate"))
+      .map(custom -> custom.getExpression().getRawExpression())
+      .findAny();
+  }
+
+  public static Optional<String> code(TaskConfig task) {
+    // strongly typed! 😍
+    return Optional.of(task.getScript())
+      .filter(script -> script.contains("WfEstimate."))
+      .map(script -> StringUtils.substringBetween(script, "(", ")"));
   }
 
 }

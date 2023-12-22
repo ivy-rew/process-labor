@@ -20,7 +20,7 @@
       "id" : "f1",
       "type" : "TaskEnd",
       "visual" : {
-        "at" : { "x" : 912, "y" : 272 }
+        "at" : { "x" : 1088, "y" : 272 }
       }
     }, {
       "id" : "f3",
@@ -29,7 +29,10 @@
       "config" : {
         "task" : {
           "name" : "first",
-          "description" : "estimate:5h"
+          "description" : "estimate:5h",
+          "customFields" : [
+            { "name" : "estimate", "type" : "String", "value" : "\"5d\"" }
+          ]
         },
         "tags" : "estimate-3d"
       },
@@ -51,7 +54,8 @@
       "config" : {
         "task" : {
           "name" : "second",
-          "description" : "estimate:1h"
+          "description" : "estimate:1h",
+          "code" : "WfEstimate.setEstimateDays(7);"
         }
       },
       "visual" : {
@@ -65,8 +69,12 @@
         "at" : { "x" : 704, "y" : 64 }
       },
       "connect" : [
-        { "id" : "f12", "to" : "f11", "color" : "almostHappy" },
-        { "id" : "f14", "to" : "f13", "color" : "happyPath" },
+        { "id" : "f12", "to" : "f11", "color" : "almostHappy", "label" : {
+            "name" : "veryLikely"
+          } },
+        { "id" : "f14", "to" : "f13", "color" : "happyPath", "label" : {
+            "name" : "soHappy"
+          } },
         { "id" : "f16", "to" : "f15" }
       ]
     }, {
@@ -82,7 +90,7 @@
       "visual" : {
         "at" : { "x" : 704, "y" : 272 }
       },
-      "connect" : { "id" : "f8", "to" : "f1" }
+      "connect" : { "id" : "f18", "to" : "f17", "var" : "in1" }
     }, {
       "id" : "f13",
       "type" : "TaskEnd",
@@ -103,6 +111,40 @@
       "visual" : {
         "at" : { "x" : 888, "y" : 152 },
         "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    }, {
+      "id" : "f17",
+      "type" : "TaskSwitchGateway",
+      "config" : {
+        "outLinks" : [ "TaskA.ivp", "TaskB.ivp" ],
+        "tasks" : {
+          "TaskA" : {
+            "name" : "one"
+          },
+          "TaskB" : {
+            "name" : "the other"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 832, "y" : 272 }
+      },
+      "connect" : [
+        { "id" : "f20", "to" : "f19", "condition" : "ivp==\"TaskA.ivp\"" },
+        { "id" : "f22", "to" : "f21", "condition" : "ivp==\"TaskB.ivp\"" }
+      ]
+    }, {
+      "id" : "f19",
+      "type" : "Script",
+      "visual" : {
+        "at" : { "x" : 832, "y" : 392 }
+      },
+      "connect" : { "id" : "f8", "to" : "f1" }
+    }, {
+      "id" : "f21",
+      "type" : "RestClientCall",
+      "visual" : {
+        "at" : { "x" : 936, "y" : 272 }
       }
     } ],
   "layout" : {
