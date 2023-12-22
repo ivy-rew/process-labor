@@ -30,7 +30,8 @@
         "task" : {
           "name" : "first",
           "description" : "estimate:5h"
-        }
+        },
+        "tags" : "estimate-3d"
       },
       "visual" : {
         "at" : { "x" : 224, "y" : 64 }
