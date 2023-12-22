@@ -45,6 +45,7 @@ public class TaskEstimate {
     return task.getCustomFields().stream()
       .filter(custom -> custom.getName().equals("estimate"))
       .map(custom -> custom.getExpression().getRawExpression())
+      .map(value -> StringUtils.substringBetween(value, "\""))
       .findAny();
   }
 

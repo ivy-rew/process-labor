@@ -55,6 +55,9 @@
         "task" : {
           "name" : "second",
           "description" : "estimate:1h",
+          "customFields" : [
+            { "name" : "estimate", "type" : "String", "value" : "\"3d\"" }
+          ],
           "code" : "WfEstimate.setEstimateDays(7);"
         }
       },

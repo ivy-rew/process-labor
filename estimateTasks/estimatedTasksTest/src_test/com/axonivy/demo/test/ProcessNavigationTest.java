@@ -90,6 +90,16 @@ public class ProcessNavigationTest {
       .as("simple strategy with fallbacks: e.g. tags first, description later")
       .isEqualTo("5h");
 
+    var second = graph.process.search().type(UserTask.class).name("second").findOne();
+
+    assertThat(TaskEstimate.customFields(second.getTaskConfig()).get())
+      .as("custom fields: will leave a trace on the db, in each and every task-instance")
+      .isEqualTo("3d");
+
+    assertThat(TaskEstimate.code(second.getTaskConfig()).get())
+      .as("most promising: strongly typed estimates in task-code")
+      .isEqualTo("7");
+
     // third any maybe preferred option: refer by PID and keep data in separate store
   }
 
