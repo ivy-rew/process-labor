@@ -1,5 +1,5 @@
 {
-  "format" : "10.0.0",
+  "$schema" : "https://json-schema.axonivy.com/process/11.2.2/process.json",
   "id" : "18C3F2549A69F85B",
   "config" : {
     "data" : "com.axonivy.demo.test.Data"
@@ -9,13 +9,14 @@
       "type" : "RequestStart",
       "name" : "start.ivp",
       "config" : {
-        "callSignature" : "start",
-        "outLink" : "start.ivp"
+        "signature" : "start"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 64 }
       },
-      "connect" : { "id" : "f4", "to" : "f3", "color" : "happyPath" }
+      "connect" : [
+        { "id" : "f4", "to" : "f3", "color" : "happyPath" }
+      ]
     }, {
       "id" : "f1",
       "type" : "TaskEnd",
@@ -31,22 +32,28 @@
           "name" : "first",
           "description" : "estimate:5h",
           "customFields" : [
-            { "name" : "estimate", "type" : "String", "value" : "\"5d\"" }
+            { "name" : "estimate", "type" : "STRING", "value" : "\"5d\"" }
           ]
-        },
-        "tags" : "estimate-3d"
+        }
       },
+      "tags" : [
+        "estimate-3d"
+      ],
       "visual" : {
         "at" : { "x" : 224, "y" : 64 }
       },
-      "connect" : { "id" : "f6", "to" : "f5" }
+      "connect" : [
+        { "id" : "f6", "to" : "f5" }
+      ]
     }, {
       "id" : "f5",
       "type" : "Script",
       "visual" : {
         "at" : { "x" : 384, "y" : 64 }
       },
-      "connect" : { "id" : "f7", "to" : "f2" }
+      "connect" : [
+        { "id" : "f7", "to" : "f2" }
+      ]
     }, {
       "id" : "f2",
       "type" : "UserTask",
@@ -56,7 +63,7 @@
           "name" : "second",
           "description" : "estimate:1h",
           "customFields" : [
-            { "name" : "estimate", "type" : "String", "value" : "\"3d\"" }
+            { "name" : "estimate", "type" : "STRING", "value" : "\"3d\"" }
           ],
           "code" : "WfEstimate.setEstimateDays(7);"
         }
@@ -64,7 +71,9 @@
       "visual" : {
         "at" : { "x" : 576, "y" : 64 }
       },
-      "connect" : { "id" : "f10", "to" : "f9" }
+      "connect" : [
+        { "id" : "f10", "to" : "f9" }
+      ]
     }, {
       "id" : "f9",
       "type" : "Alternative",
@@ -93,7 +102,9 @@
       "visual" : {
         "at" : { "x" : 704, "y" : 272 }
       },
-      "connect" : { "id" : "f18", "to" : "f17", "var" : "in1" }
+      "connect" : [
+        { "id" : "f18", "to" : "f17", "var" : "in1" }
+      ]
     }, {
       "id" : "f13",
       "type" : "TaskEnd",
@@ -107,8 +118,8 @@
       "type" : "ErrorEnd",
       "name" : "out:of:happy:exception",
       "config" : {
-        "error" : {
-          "code" : "out:of:happy:exception"
+        "throws" : {
+          "error" : "out:of:happy:exception"
         }
       },
       "visual" : {
@@ -119,15 +130,13 @@
       "id" : "f17",
       "type" : "TaskSwitchGateway",
       "config" : {
-        "outLinks" : [ "TaskA.ivp", "TaskB.ivp" ],
-        "tasks" : {
-          "TaskA" : {
+        "tasks" : [ {
+            "id" : "TaskA",
             "name" : "one"
-          },
-          "TaskB" : {
+          }, {
+            "id" : "TaskB",
             "name" : "the other"
-          }
-        }
+          } ]
       },
       "visual" : {
         "at" : { "x" : 832, "y" : 272 }
@@ -142,7 +151,9 @@
       "visual" : {
         "at" : { "x" : 832, "y" : 392 }
       },
-      "connect" : { "id" : "f8", "to" : "f1" }
+      "connect" : [
+        { "id" : "f8", "to" : "f1" }
+      ]
     }, {
       "id" : "f21",
       "type" : "RestClientCall",
