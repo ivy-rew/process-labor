@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: estimatedTasksTest
+Bundle-SymbolicName: estimatedTasksTest
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Automatic-Module-Name: estimatedTasksTest
+Export-Package: .,
+ com.axonivy.demo.test
