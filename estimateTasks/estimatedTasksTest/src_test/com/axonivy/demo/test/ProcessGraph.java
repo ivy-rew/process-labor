@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import com.axonivy.demo.test.HappyPathFinder.PathColor;
 
-import ch.ivyteam.ivy.process.IProcessManager;
+import ch.ivyteam.ivy.process.rdm.IProcessManager;
 import ch.ivyteam.ivy.process.model.EmbeddedProcess;
 import ch.ivyteam.ivy.process.model.NodeElement;
 import ch.ivyteam.ivy.process.model.Process;

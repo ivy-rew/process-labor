@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import ch.ivyteam.ivy.environment.Ivy;
 import ch.ivyteam.ivy.environment.IvyTest;
-import ch.ivyteam.ivy.process.IProcessManager;
+import ch.ivyteam.ivy.process.rdm.IProcessManager;
 import ch.ivyteam.ivy.process.model.NodeElement;
 import ch.ivyteam.ivy.process.model.element.Tagable;
 import ch.ivyteam.ivy.process.model.element.activity.UserTask;
